@@ -4,7 +4,7 @@
   "description": "Advent of Code Day 1 problem 1 - The Tyranny of the Rocket Equation (https://adventofcode.com/2019/day/1)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Adam Mescher",
   "license": "MIT",
