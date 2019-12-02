@@ -1,5 +1,6 @@
 const readline = require('readline');
 const fs = require('fs');
+let puzzleInput = fs.readFileSync('./puzzle-input.txt', {encoding: 'utf8'}).split(/\r?\n/);
 
 const calculateFuelConsumption = mass => parseInt(mass / 3) - 2;
 const calculateFuelConsumptionWithAddedFuel = mass => {
@@ -9,31 +10,21 @@ const calculateFuelConsumptionWithAddedFuel = mass => {
       mass = calculateFuelConsumption(mass);
     }
     return total;
-}
+};
 
-const calculateModuleFuelRequirement = async () => {
-    const rl = readline.createInterface({ input: fs.createReadStream('./puzzle-input.txt') });
-    let total = 0;
-    rl.on('line', function(line) {
-        total += calculateFuelConsumption(line);
-        console.log(calculateFuelConsumption(line))
-        console.log(total)
-    });
-    await total;
-    return total;
-}
+const calculateModuleFuelRequirement = () => {
+    return puzzleInput.reduce((accum, mass) => {
+        return accum += calculateFuelConsumption(mass);
+    }, 0);
+};
 
-const calculateModuleFuelRequirementWithAddedFuel = async () => {
-    const rl = readline.createInterface({ input: fs.createReadStream('./puzzle-input.txt') });
-    let total = 0;
-    rl.on('line', function(line) {
-        total += calculateFuelConsumptionWithAddedFuel(line);
-        console.log('TOTAL: ', total)
-    });
-    await total;
-    return total;
-}
+const calculateModuleFuelRequirementWithAddedFuel = () => {
+    return puzzleInput.reduce((accum, mass) => {
+        return accum += calculateFuelConsumptionWithAddedFuel(mass);
+    }, 0);
+};
 
-calculateModuleFuelRequirementWithAddedFuel();
+console.log('PART 1 SOLUTION: ', calculateModuleFuelRequirement());
+console.log('PART 2 SOLUTION: ', calculateModuleFuelRequirementWithAddedFuel());
 
 module.exports = { calculateFuelConsumption, calculateFuelConsumptionWithAddedFuel };
