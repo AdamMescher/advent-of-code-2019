@@ -1,9 +1,3 @@
-/* For a mass of 12, divide by 3 and round down to get 4, then subtract 2 to get 2.
-For a mass of 14, dividing by 3 and rounding down still yields 4, so the fuel required is also 2.
-For a mass of 1969, the fuel required is 654.
-For a mass of 100756, the fuel required is 33583.
-*/
-
 const {calculateFuelConsumption, calculateFuelConsumptionWithAddedFuel} = require('./index');
 
 describe('Calculate Mass', () => {
@@ -33,12 +27,6 @@ describe('Calculate Mass', () => {
     });
 });
 
-describe('Read from input file', () => {
-    it.skip('Should be able to read the mass of the module on the first line of the file and return the required fuel consumption', () => {});
-    it.skip('Should be able to calculate the fuel consumption of two modules on the first and second line of the file and return the sum', () => {});
-    it.skip('Should be able to calculate the fuel consumption of all modules and return the sum', () => {});
-});
-
 describe('Fuel for the additional fuel', () => {
     it('Should be able to calculate the additional fuel consumption that does not need more than one calculation', () => {
         const moduleMass = 14;
@@ -58,4 +46,4 @@ describe('Fuel for the additional fuel', () => {
         const actualModuleFuelConsumption = calculateFuelConsumptionWithAddedFuel(moduleMass);
         expect(expectedModuleFuelConsumption).toEqual(actualModuleFuelConsumption);
     });
-})
+});
