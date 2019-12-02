@@ -1,0 +1,11 @@
+{
+  "name": "Day2-1202-program-alarm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Adam Mescher",
+  "license": "MIT"
+}
