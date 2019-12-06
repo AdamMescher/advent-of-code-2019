@@ -34,6 +34,13 @@ const findCloestDistance = arr => {
     }, Infinity);
 }
 const searchBandsForCrossings = (one, two) => {
+    const intersections = generateIntersections(one, two);
+    const result = findCloestDistance(intersections);
+    console.log(`SOLUTION: ${result}`)
+    return result;
+}
+
+const generateIntersections = (one, two) => {
     const wireOne = genrerateWireCoordinates(one);
     const wireTwo = genrerateWireCoordinates(two);
     let uniqueWireOne = new Set(wireOne);
@@ -46,28 +53,37 @@ const searchBandsForCrossings = (one, two) => {
     const intersections = [];
     for (let i = 0; i < keys.length; i++) {
         if (oneBanded[keys[i]] && twoBanded[keys[i]]) {
-        oneBanded[keys[i]].forEach(position => {
-            twoBanded[keys[i]].forEach(pos => (JSON.stringify(position) === JSON.stringify(pos)) ? intersections.push(pos) : null );
-        });
+            oneBanded[keys[i]].forEach(position => {
+                twoBanded[keys[i]].forEach(pos => (JSON.stringify(position) === JSON.stringify(pos)) ? intersections.push(pos) : null );
+            });
         }
     }
-    const result = findCloestDistance(intersections);
-    console.log(`SOLUTION: ${result}`)
-    return result;
+    return intersections;
 }
 
 const calculateStepsToPoint = (wire, point) => {
-    let steps = 0;
-    const coordinates = wire.split(',');
-    for (let i = 0; i < coordinates.length; i++) {
-        if (JSON.stringify(coordinates[i]) === JSON.stringify(point)) {
-            return steps;
-        }
-        counter += 1;
+    let steps = 1;
+    const wireCoordinates = genrerateWireCoordinates(wire);
+    for (let i = 0; i < wireCoordinates.length; i++) {
+      if (JSON.stringify(wireCoordinates[i]) === JSON.stringify(point)) {
+        return steps;
+      }
+      steps += 1;
     }
     return -1;
 }
-const minimizeSignalDelay = () => {}
+
+const calculateFewestSteps = (intersections, one, two) => {
+  let fewestSteps = Infinity;
+  intersections.forEach(point => {
+    const totalSteps = calculateStepsToPoint(one, point) + calculateStepsToPoint(two, point);
+    if (fewestSteps > totalSteps) {
+      fewestSteps = totalSteps;
+    }
+  })
+  console.log(`FEWEST STEPS: ${fewestSteps}`);
+  return fewestSteps;
+}
 
 // SOLUTION: 1983
 const firstWire = 'R999,D666,L86,U464,R755,U652,R883,D287,L244,U308,L965,U629,R813,U985,R620,D153,L655,D110,R163,D81,L909,D108,L673,D165,L620,U901,R601,D561,L490,D21,R223,U478,R80,U379,R873,U61,L674,D732,R270,U297,L354,U264,L615,D2,R51,D582,R280,U173,R624,U644,R451,D97,R209,U245,R32,U185,R948,D947,R380,D945,L720,U305,R911,U614,L419,D751,L934,U371,R291,D166,L137,D958,R368,U441,R720,U822,R961,D32,R242,D972,L782,D166,L680,U111,R379,D155,R213,U573,R761,D543,R762,U953,R317,U841,L38,U900,R573,U766,R807,U950,R945,D705,R572,D994,L633,U33,L173,U482,R253,D835,R800,U201,L167,U97,R375,D813,L468,D924,L972,U570,R975,D898,L195,U757,L565,D378,R935,U4,L334,D707,R958,U742,R507,U892,R174,D565,L862,D311,L770,D619,L319,D698,L169,D652,L761,D644,R837,U43,L197,D11,L282,D345,L551,U460,R90,D388,R911,U602,L21,D275,L763,U880,R604,D838,R146,U993,L99,U99,R928,U54,L148,D863,R618,U449,R549,D659,R449,D435,L978,D612,L645,D691,R190,D434,L841,D364,L634,D590,R962,U15,R921,D442,L284,U874,R475,D556,L135,U376,L459,D673,L515,U438,L736,U266,L601,U351,R496,U891,L893,D597,L135,D966,R121,U763,R46,D110,R830,U644,L932,D122,L123,U145,R273,U690,L443,D372,R818,D259,L695,U69,R73,D718,R106,U929,L346,D291,L857,D341,R297,D823,R819,U496,L958,U394,R102,D763,L444,D835,L33,U45,R812,U845,R196,U458,R231,U637,R661,D983,L941,U975,L353,U609,L698,U152,R122,D882,R682,D926,R729,U429,R255,D227,R987,D547,L446,U217,R678,D464,R849,D472,L406,U940,L271,D779,R980,D751,L171,D420,L49,D271,R430,D530,R509,U479,R135,D770,R85,U815,R328,U234,R83';
@@ -85,5 +101,11 @@ const testFour = 'U62,R66,U55,R34,D71,R55,D58,R83';
 const testFive = 'R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51';
 const testSix = 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7';
 
+// SOLUTION: 
+const testSeven = 'R75,D30,R83,U83,L12,D49,R71,U7,L72';
+const testEight = 'U62,R66,U55,R34,D71,R55,D58,R83';
 
-searchBandsForCrossings(firstWire, secondWire);
+const t9 = 'R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51';
+const t10 = 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7';
+const intersections = generateIntersections(firstWire, secondWire);
+calculateFewestSteps(intersections, firstWire, secondWire);
