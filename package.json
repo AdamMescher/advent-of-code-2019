@@ -1,6 +1,6 @@
 {
   "name": "advent-of-code-2019",
-  "version": "1.0.0",
+  "version": "0.0.4",
   "description": "[Advent of Code](https://adventofcode.com/) is an Advent calendar of small programming puzzles created by [Eric Wastl](http://was.tl/).",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/AdamMescher/advent-of-code-2019.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Adam Mescher",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/AdamMescher/advent-of-code-2019/issues"
   },
