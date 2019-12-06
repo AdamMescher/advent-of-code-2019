@@ -4,7 +4,8 @@
   "description": "[Advent of Code](https://adventofcode.com/) is an Advent calendar of small programming puzzles created by [Eric Wastl](http://was.tl/).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "./node_modules/.bin/eslint ./ --ext .js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/AdamMescher/advent-of-code-2019/issues"
   },
-  "homepage": "https://github.com/AdamMescher/advent-of-code-2019#readme"
+  "homepage": "https://github.com/AdamMescher/advent-of-code-2019#readme",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0"
+  }
 }
